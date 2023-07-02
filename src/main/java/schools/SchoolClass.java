@@ -3,18 +3,18 @@ package schools;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Class {
+public class SchoolClass {
     private List<Pupil> classGroup = new ArrayList<>(); // lepiej była by HashMap<Guardian, Pupil>? (dla lepszej weryfikacji ucznia?
-    private String className;
+    private String schoolClassName;
     private String gradeLevel;
 
-    public Class(String className, String gradeLevel){
-        this.className = className;
+    public SchoolClass(String schoolClassName, String gradeLevel){
+        this.schoolClassName = schoolClassName;
         this.gradeLevel = gradeLevel;
         //this.classGroup = new ArrayList<>(); //a jeśli nie dodałabym tej cechy do konstruktora?
     }
     public List<Pupil> getClassGroup(){
-        return new ArrayList<>();
+        return classGroup;
         // stworzenie nowej ArrayList zabezpieczy przed ryzykiem usunięcia (clear) przez kogoś mojej listy?
         // (jako że zwracam kopię listy a nie oryginał?)
     }
@@ -43,8 +43,8 @@ public class Class {
             return false;
         }
     }
-    public String getClassName(){
-        return className;
+    public String getSchoolClassName(){
+        return schoolClassName;
     }
     public String getGradeLevel(){
         return gradeLevel;

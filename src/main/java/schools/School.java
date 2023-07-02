@@ -14,7 +14,7 @@ a każda klasa szkolna powinna zawierać listę uczniów.
  */
 public class School {
     private String name;
-    private Map<String, Class> schoolClasses;
+    private Map<String, SchoolClass> schoolClasses;
     public School(String name){
         this.name = name;
         this.schoolClasses = new HashMap<>(); // a jeśli nie dodałabym teh cechy w konstruktorze?
@@ -22,18 +22,18 @@ public class School {
     public String getName(){
         return name;
     }
-    public boolean addClass(Class classToAdd){
-        String className = classToAdd.getClassName();
-        if(schoolClasses.containsKey(className)){
+    public boolean addClass(SchoolClass classToAdd){
+        String schoolClassName = classToAdd.getSchoolClassName();
+        if(schoolClasses.containsKey(schoolClassName)){
             System.out.println("This class already exist in the school. Propose different name to add class to a base.");
             return false;
         }
         else{
-            this.schoolClasses.put(className, classToAdd);
+            this.schoolClasses.put(schoolClassName, classToAdd);
             return true;
         }
     }
-    public boolean removeClass(Class existingClass){
+    public boolean removeClass(SchoolClass existingClass){
         String className = existingClass.getGradeLevel();
         if(schoolClasses.containsKey(className)){
             this.schoolClasses.remove(existingClass);
@@ -44,21 +44,21 @@ public class School {
             return false;
         }
     }
-    public Map<String, Class> getSchoolClasses(){
+    public Map<String, SchoolClass> getSchoolClasses(){
         return new HashMap<>();
     }
 
-    public int getHeadcount(Map<String, Class> schoolClasses) {  // zamienić na iterację po values()?
+    public int getHeadcount(Map<String, SchoolClass> schoolClasses) {  // zamienić na iterację po values()?
         int headcount = 0;
-        for(Map.Entry<String, Class> entry : schoolClasses.entrySet()){
-            Class klasa = entry.getValue();
+        for(Map.Entry<String, SchoolClass> entry : schoolClasses.entrySet()){
+            SchoolClass klasa = entry.getValue();
             headcount = klasa.getClassGroup().size();
         }
         return headcount;
     }
-    public Map<String, Integer>getEachClassHeadcount(Map<String, Class> schoolClasses){
+    public Map<String, Integer> getEachClassHeadcount(Map<String, SchoolClass> schoolClasses){
         Map<String, Integer> listOfClasses = null; //InteliiJ wymusił inicjalizację null - mogę to inaczej rozwiązać?
-        for(Map.Entry<String, Class> entry : schoolClasses.entrySet()){
+        for(Map.Entry<String, SchoolClass> entry : schoolClasses.entrySet()){
             String className = entry.getKey();
             int classHeadcount = entry.getValue().getClassGroup().size();
             listOfClasses.put(className, classHeadcount);
@@ -66,7 +66,7 @@ public class School {
         return listOfClasses;
     }
     public void print(){
-        for(Map.Entry<String, Class> entry : schoolClasses.entrySet()){
+        for(Map.Entry<String, SchoolClass> entry : schoolClasses.entrySet()){
             System.out.println("Class " + entry.getKey() + " " + entry.getValue().getGradeLevel()
                     + " | number of pupils: " + entry.getValue().getClassGroup().size());
         }

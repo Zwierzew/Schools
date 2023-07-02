@@ -4,7 +4,7 @@ public class Pupil {
     private String name;
     private String surname;
     private String dateOfBirth;
-    private Class className;
+    private SchoolClass schoolClassName;
     private Guardian guardian;
 
     public Pupil(String name, String surname, String dateOfBirth){
@@ -21,11 +21,11 @@ public class Pupil {
     public String getDateOfBirth(){
         return dateOfBirth;
     }
-    public Class getClassName(){
-        return className;
+    public SchoolClass getClassName(){
+        return schoolClassName;
     }
-    public void setClassName(Class actualClass){
-        this.className = actualClass; // actualClass jest ustawione w Class
+    public void setClassName(SchoolClass actualClass){
+        this.schoolClassName = actualClass; // actualClass jest ustawione w Class
     }
     public Guardian getGuardian(){
         return guardian;
