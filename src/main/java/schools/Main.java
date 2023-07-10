@@ -7,24 +7,24 @@ public class Main {
         Pupil pupil3 = new Pupil("Ada", "Laska", "1987");
         Pupil pupil4 = new Pupil("Tom", "Laska", "1987");
 
-        Guardian guardian = new Guardian("OLa", "dee", "dicie", "898-345-183");
+        Guardian guardian = new Guardian("OLa", "xyz", "address", "898-345-183");
         guardian.addChild(pupil1);
         guardian.addChild(pupil2);
         guardian.addChild(pupil3);
         guardian.addChild(pupil4);
 
 
-        SchoolClass classA = new SchoolClass("A", "3");
+        SchoolClass classA = new SchoolClass("A3");
         classA.addPupil(pupil1,guardian);
         classA.addPupil(pupil2,guardian);
         classA.addPupil(pupil3,guardian);
         classA.addPupil(pupil4,guardian);
 
-        SchoolClass classB = new SchoolClass("B", "3");
+        SchoolClass classB = new SchoolClass("B3");
         classB.addPupil(pupil1,guardian);
         classB.addPupil(pupil2,guardian);
 
-        SchoolClass classC = new SchoolClass("C", "3");
+        SchoolClass classC = new SchoolClass("C3");
         classC.addPupil(pupil1,guardian);
         classC.addPupil(pupil2,guardian);
 
@@ -36,9 +36,5 @@ public class Main {
 
         school1.print();
         System.out.println(classA.getClassGroup().size());
-        // nie rozumiem dlaczego do Class nie są dodawani Pupil.
-        // Spradzałam debbuger'em i zwiąkszało size po każdym dodaniu, a tu pokazuje 0.
-
-
     }
 }

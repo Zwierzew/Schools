@@ -3,7 +3,7 @@ package schools;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
 Na podstawie struktury klas uczniów w szkolę napisz mechanizm,
 który zwróci wszystkich uczniów danej szkoły.
 
@@ -34,9 +34,9 @@ public class School {
         }
     }
     public boolean removeClass(SchoolClass existingClass){
-        String className = existingClass.getGradeLevel();
-        if(schoolClasses.containsKey(className)){
-            this.schoolClasses.remove(existingClass);
+        String className2 = existingClass.getSchoolClassName();
+        if(schoolClasses.containsKey(className2)){
+            this.schoolClasses.remove(existingClass.getSchoolClassName());
             return true;
         }
         else{
@@ -45,30 +45,31 @@ public class School {
         }
     }
     public Map<String, SchoolClass> getSchoolClasses(){
-        return new HashMap<>();
+        return schoolClasses;
     }
 
-    public int getHeadcount(Map<String, SchoolClass> schoolClasses) {  // zamienić na iterację po values()?
+    public int getHeadcount(Map<String, SchoolClass> schoolClasses) {
         int headcount = 0;
-        for(Map.Entry<String, SchoolClass> entry : schoolClasses.entrySet()){
-            SchoolClass klasa = entry.getValue();
-            headcount = klasa.getClassGroup().size();
+        for (SchoolClass singleClass : schoolClasses.values()){
+            headcount += singleClass.getClassGroup().size();
         }
         return headcount;
     }
     public Map<String, Integer> getEachClassHeadcount(Map<String, SchoolClass> schoolClasses){
-        Map<String, Integer> listOfClasses = null; //InteliiJ wymusił inicjalizację null - mogę to inaczej rozwiązać?
+        Map<String, Integer> listOfClassesWithHeadcount = new HashMap<>();
+
         for(Map.Entry<String, SchoolClass> entry : schoolClasses.entrySet()){
             String className = entry.getKey();
             int classHeadcount = entry.getValue().getClassGroup().size();
-            listOfClasses.put(className, classHeadcount);
+            listOfClassesWithHeadcount.put(className, classHeadcount);
         }
-        return listOfClasses;
+        return listOfClassesWithHeadcount;
     }
     public void print(){
+        System.out.println(name + "school: \n");
         for(Map.Entry<String, SchoolClass> entry : schoolClasses.entrySet()){
-            System.out.println("Class " + entry.getKey() + " " + entry.getValue().getGradeLevel()
-                    + " | number of pupils: " + entry.getValue().getClassGroup().size());
+            System.out.println("\t * class " + entry.getKey() + " " + entry.getValue()
+                    + " | number of pupils: " + entry.getValue().getClassGroup().size() + "\n");
         }
     }
 }

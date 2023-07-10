@@ -4,20 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SchoolClass {
-    private List<Pupil> classGroup = new ArrayList<>(); // lepiej była by HashMap<Guardian, Pupil>? (dla lepszej weryfikacji ucznia?
+    private List<Pupil> classGroup;
     private String schoolClassName;
-    private String gradeLevel;
 
-    public SchoolClass(String schoolClassName, String gradeLevel){
+    public SchoolClass(String schoolClassName){
         this.schoolClassName = schoolClassName;
-        this.gradeLevel = gradeLevel;
-        //this.classGroup = new ArrayList<>(); //a jeśli nie dodałabym tej cechy do konstruktora?
+        this.classGroup = new ArrayList<>();
     }
-    public List<Pupil> getClassGroup(){
-        return classGroup;
-        // stworzenie nowej ArrayList zabezpieczy przed ryzykiem usunięcia (clear) przez kogoś mojej listy?
-        // (jako że zwracam kopię listy a nie oryginał?)
-    }
+
     public boolean addPupil(Pupil pupil, Guardian guardian){
         Guardian newPupilGuardian = pupil.getGuardian();
         if(classGroup.contains(pupil) && newPupilGuardian.equals(guardian) ){
@@ -43,10 +37,10 @@ public class SchoolClass {
             return false;
         }
     }
+    public List<Pupil> getClassGroup(){
+        return classGroup;
+    }
     public String getSchoolClassName(){
         return schoolClassName;
-    }
-    public String getGradeLevel(){
-        return gradeLevel;
     }
 }

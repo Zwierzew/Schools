@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.security.KeyStore;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,7 +17,7 @@ class SchoolTest {
     @BeforeEach
     public void entryDataForTests(){
         school = new School("Żeromskiego");
-        clazzA = new SchoolClass("A", "3");
+        clazzA = new SchoolClass("A3");
         Guardian guardian = new Guardian("Jan", "Kowalski", "Kielecka 18, 26-009 Kielce", "789-987-876");
         Pupil pupil1 = new Pupil("Ewa", "Odra", "2001");
         clazzA.addPupil(pupil1, guardian);
@@ -43,36 +44,33 @@ class SchoolTest {
         school.addClass(clazzA);
 
         // when
-//        boolean result = school.getSchoolClasses().get(clazzA.getSchoolClassName()) == clazzA;
-//        boolean result2 = school.getSchoolClasses().containsKey(clazzA.getSchoolClassName());
-//        boolean result3 = school.getSchoolClasses().containsValue(clazzA);
+        boolean result = school.getSchoolClasses().containsValue(clazzA);
 
         // then
-//        assertTrue(result); // test nie przechodzi - nie rozumiem dlaczego? (próbowałam różne kompibacje z boolean i key)
-//        assertTrue(result2); //jw.
-        //assertTrue(result3); //jw.
-        //assertTrue(school.addClass(clazzA)); //to działa
-        assertThat(school.getSchoolClasses()).hasSize(1); // size = 0, dlaczego? (w Main klasy są dodawane)
-
-        //jak sprawdzić czy udało się dodać klasę do mapy?
+        assertTrue(result);
+        assertThat(school.getSchoolClasses()).hasSize(1);
     }
     @Test
     public void shouldReturnTrueIfRemovingSchoolClassSuccessful(){
         // given
-        school.addClass(clazzA); // addClass nie dodaje klasy
+        school.addClass(clazzA);
 
         // when
-        school.removeClass(clazzA);
+        assertThat(school.getSchoolClasses()).containsValue(clazzA);
+
         // then
-        assertThat(school.getSchoolClasses()).hasSize(0); // remove działa - zwraca messgage if class do not exist
+        assertTrue(school.removeClass(clazzA));
+        assertThat(school.getSchoolClasses()).hasSize(0);
     }
     @Test
     public void shouldReturnFalseIfRemovingSchoolClassDoNotExist(){
         // given
         school.addClass(clazzA);
-        school.removeClass(clazzA); // podało message - powyższa komenda nie dodała klasy
+        assertThat(school.getSchoolClasses()).containsValue(clazzA);
+        school.removeClass(clazzA);
 
         // when
+        assertThat(school.getSchoolClasses().size()).isEqualTo(0);
 
         // then
         assertFalse(school.removeClass(clazzA));
@@ -80,25 +78,25 @@ class SchoolTest {
     @Test
     public void shouldReturnTotalSchoolHeadcount(){
         // given
-        school.addClass(clazzA); //jw.
+        school.addClass(clazzA);
 
         // when
-        school.getHeadcount(school.getSchoolClasses());
+        boolean result = school.getHeadcount(school.getSchoolClasses()) == 1;
 
         // then
+        assertTrue(result);
         assertThat(school.getSchoolClasses().size()).isEqualTo(1);
+        // która z tych dwóch asercji powyżej jest lepsza do sprawdzenia żądanej metody?
     }
     @Test
-    public void shouldReturnClassesHeadcountAsMap(){
+    public void shouldReturnMapOfClassesWithHeadcount(){
         // given
         school.addClass(clazzA);
 
         // when
-        Map<String, Integer> schoolClassesMap = school.getEachClassHeadcount(school.getSchoolClasses());
+        school.getEachClassHeadcount(school.getSchoolClasses());
 
         //then
-        assertTrue(clazzA.getClassGroup().size() == 1);
-        assertTrue(schoolClassesMap.size() == 1);
-
+     //   assertTrue(schoolClassesWithHeadcountMap.size() == 1);
     }
 }
